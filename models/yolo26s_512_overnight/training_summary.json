@@ -1,0 +1,20 @@
+{
+  "run_dir": "D:\\Study\\Projects\\Fracture-Detection_HDAsubject\\WristTrauma-AI\\results\\yolo26s_512_overnight-6",
+  "best_pt": "D:\\Study\\Projects\\Fracture-Detection_HDAsubject\\WristTrauma-AI\\models\\yolo26s_512_overnight\\best.pt",
+  "last_pt": "D:\\Study\\Projects\\Fracture-Detection_HDAsubject\\WristTrauma-AI\\models\\yolo26s_512_overnight\\last.pt",
+  "config_used": "D:\\Study\\Projects\\Fracture-Detection_HDAsubject\\WristTrauma-AI\\models\\yolo26s_512_overnight\\train_args.yaml",
+  "training_time_seconds": 17182.1,
+  "training_time_hms": "04:46:22",
+  "best_epoch": 43,
+  "best_val_mAP50": 0.62908,
+  "best_val_mAP50-95": 0.36406,
+  "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "epochs_requested": 150,
+  "imgsz": 512,
+  "batch_setting": "32",
+  "cache": "disk",
+  "compile": "off",
+  "channels_last": false,
+  "deterministic": false,
+  "workers": 4
+}

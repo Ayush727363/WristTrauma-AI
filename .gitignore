@@ -1,0 +1,26 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Node
+node_modules/
+dist/
+frontend/dist/
+
+# Large raw data -- NOT needed for deployment, only trained weights are.
+# If you're pushing this repo for hosting, keep models/ (small .pt files)
+# but exclude the raw/processed image dataset (many GB).
+data/raw/
+data/processed/
+data/classification/cache_*/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Env files (never commit real secrets/URLs if sensitive)
+.env
+.env.local

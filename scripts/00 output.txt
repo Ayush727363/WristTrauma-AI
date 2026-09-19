@@ -1,0 +1,147 @@
+(venv) PS D:\Study\Projects\Fracture-Detection_HDAsubject\WristTrauma-AI> python scripts\00_sanity_check.py
+
+### STEP 1/5: dependency check ###
+
+### STEP 2/5: GPU / CUDA / AMP check ###
+======================================================================
+ENVIRONMENT / GPU REPORT
+======================================================================
+  python_version        : 3.12.10
+  platform              : Windows-11-10.0.26200-SP0
+  cpu_count             : 28
+  torch_version         : 2.11.0+cu128
+  cuda_available        : True
+  cuda_device_index     : 0
+  gpu_name              : NVIDIA GeForce RTX 5060 Laptop GPU
+  gpu_total_memory_gb   : 7.96
+  cuda_version          : 12.8
+  cudnn_version         : 91900
+  amp_supported         : True
+  ultralytics_version   : 8.4.127
+======================================================================
+[ok] GPU detected: NVIDIA GeForce RTX 5060 Laptop GPU (7.96 GB)
+
+### STEP 3/5: dataset layout / label pairing check ###
+[ok] dataset.yaml classes match spec exactly (9 classes, correct order)
+  train:  14170 images |  14170 labels | empty labels:  11 | diff from expected: 0.0%
+  val  :   3165 images |   3165 labels | empty labels:   2 | diff from expected: 0.0%
+  test :   2992 images |   2992 labels | empty labels:   2 | diff from expected: 0.0%
+[saved] D:\Study\Projects\Fracture-Detection_HDAsubject\WristTrauma-AI\results\00_sanity_check\dataset_layout_summary.json
+
+### STEP 4/5: load YOLO26s pretrained weights ###
+[ok] Loaded model: DetectionModel, task=detect
+
+### STEP 5/5: 1-epoch smoke-test train + val on REAL data ###
+(small batch, small subset behaviour is NOT used - this runs on the
+ real train/val split for one epoch purely to catch pipeline bugs)
+Ultralytics 8.4.127  Python-3.12.10 torch-2.11.0+cu128 CUDA:0 (NVIDIA GeForce RTX 5060 Laptop GPU, 8151MiB)
+engine\trainer: agnostic_nms=False, amp=True, angle=1.0, augment=False, auto_augment=randaugment, batch=-1, bgr=0.0, box=7.5, cache=False, cfg=None, channels_last=False, classes=None, close_mosaic=10, cls=0.5, cls_pw=0.0, cls_remap=True, compile=False, conf=None, copy_paste=0.0, copy_paste_mode=flip, cos_lr=False, cutmix=0.0, data=D:\Study\Projects\Fracture-Detection_HDAsubject\WristTrauma-AI\data\processed\dataset.yaml, degrees=0.0, deterministic=True, device=0, dfl=1.5, dgrad=0.5, dis=6.0, distill_model=None, dlam=1.0, dlog=1.0, dnn=False, dropout=0.0, dynamic=False, embed=None, end2end=None, epochs=1, erasing=0.4, exist_ok=True, fliplr=0.5, flipud=0.0, format=torchscript, fraction=1.0, freeze=None, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, imgsz=640, iou=0.7, keras=False, kobj=1.0, line_width=None, lr0=0.01, lrf=0.01, mask_ratio=4, max_det=300, mixup=0.0, mode=train, model=yolo26s.pt, momentum=0.937, mosaic=1.0, multi_scale=0.0, name=00_sanity_check_run, nbs=64, nms=False, opset=None, optimize=False, optimizer=auto, overlap_mask=True, patience=100, perspective=0.0, plots=False, pose=12.0, pretrained=True, profile=False, project=D:\Study\Projects\Fracture-Detection_HDAsubject\WristTrauma-AI\results, quantize=None, rect=False, resume=False, retina_masks=False, rle=1.0, save=True, save_conf=False, save_crop=False, save_dir=D:\Study\Projects\Fracture-Detection_HDAsubject\WristTrauma-AI\results\00_sanity_check_run, save_frames=False, save_json=False, save_period=-1, save_txt=False, scale=0.5, seed=0, shear=0.0, show=False, show_boxes=True, show_conf=True, show_labels=True, simplify=True, single_cls=False, source=None, split=val, stream_buffer=False, task=detect, time=None, tracker=tracktrack.yaml, translate=0.1, val=True, verbose=True, vid_stride=1, visualize=False, warmup_bias_lr=0.1, warmup_epochs=3.0, warmup_momentum=0.8, weight_decay=0.0005, workers=8, workspace=None
+Overriding model.yaml nc=80 with nc=9
+
+                   from  n    params  module                                       arguments
+  0                  -1  1       928  ultralytics.nn.modules.conv.Conv             [3, 32, 3, 2]
+  1                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]
+  2                  -1  1     26080  ultralytics.nn.modules.block.C3k2            [64, 128, 1, False, 0.25]
+  3                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]
+  4                  -1  1    103360  ultralytics.nn.modules.block.C3k2            [128, 256, 1, False, 0.25]
+  5                  -1  1    590336  ultralytics.nn.modules.conv.Conv             [256, 256, 3, 2]
+  6                  -1  1    346112  ultralytics.nn.modules.block.C3k2            [256, 256, 1, True]
+  7                  -1  1   1180672  ultralytics.nn.modules.conv.Conv             [256, 512, 3, 2]
+  8                  -1  1   1380352  ultralytics.nn.modules.block.C3k2            [512, 512, 1, True]
+  9                  -1  1    656896  ultralytics.nn.modules.block.SPPF            [512, 512, 5, 3, True]
+ 10                  -1  1    990976  ultralytics.nn.modules.block.C2PSA           [512, 512, 1]
+ 11                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 12             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 13                  -1  1    477184  ultralytics.nn.modules.block.C3k2            [768, 256, 1, True]
+ 14                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 15             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 16                  -1  1    136192  ultralytics.nn.modules.block.C3k2            [512, 128, 1, True]
+ 17                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]
+ 18            [-1, 13]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 19                  -1  1    378880  ultralytics.nn.modules.block.C3k2            [384, 256, 1, True]
+ 20                  -1  1    590336  ultralytics.nn.modules.conv.Conv             [256, 256, 3, 2]
+ 21            [-1, 10]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 22                  -1  1   1843712  ultralytics.nn.modules.block.C3k2            [768, 512, 1, True, 0.5, True]
+ 23        [16, 19, 22]  1    938830  ultralytics.nn.modules.head.Detect           [9, 1, True, [128, 256, 512]]
+YOLO26s summary: 260 layers, 9,954,830 parameters, 9,954,830 gradients, 22.8 GFLOPs
+
+Transferred 696/708 items from pretrained weights
+AMP: running Automatic Mixed Precision (AMP) checks...
+AMP: checks passed
+train: Fast image access  (ping: 0.10.1 ms, read: 172.5192.2 MB/s, size: 722.6 KB)
+train: Scanning D:\Study\Projects\Fracture-Detection_HDAsubject\WristTrauma-AI\data\processed\labels\train.cache... 14: 100% ━━━━━━━━━━━━ 14170/14170  0.0s
+AutoBatch: Computing optimal batch size for imgsz=640 at 60.0% GPU memory utilization.
+AutoBatch: CUDA:0 (NVIDIA GeForce RTX 5060 Laptop GPU) 7.96G total, 0.14G reserved, 0.11G allocated, 7.71G free
+      Params      GFLOPs  GPU_mem (GB)  forward (ms) backward (ms)                   input                  output
+     9954830       22.53         0.851         47.48           nan        (1, 3, 640, 640)                    list
+     9954830       45.06         1.739         31.26           nan        (2, 3, 640, 640)                    list
+     9954830       90.11         3.215         35.41           nan        (4, 3, 640, 640)                    list
+     9954830       180.2         6.092         55.32           nan        (8, 3, 640, 640)                    list
+     9954830       360.5        11.746         84.06           nan       (16, 3, 640, 640)                    list
+AutoBatch: Using batch-size 6 for CUDA:0 4.90G/7.96G (62%)
+WARNING train: Slow image access detected (ping: 0.00.0 ms, read: 31.012.7 MB/s, size: 641.4 KB). Use local storage instead of remote/mounted storage for better performance. See https://docs.ultralytics.com/guides/model-training-tips
+train: Scanning D:\Study\Projects\Fracture-Detection_HDAsubject\WristTrauma-AI\data\processed\labels\train.cache... 14: 100% ━━━━━━━━━━━━ 14170/14170  0.0s
+val: Fast image access  (ping: 0.30.2 ms, read: 207.4131.4 MB/s, size: 817.9 KB)
+val: Scanning D:\Study\Projects\Fracture-Detection_HDAsubject\WristTrauma-AI\data\processed\labels\val.cache... 3165 ima: 100% ━━━━━━━━━━━━ 3165/3165  0.0s
+optimizer: 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically...
+optimizer: AdamW(lr=0.000769, momentum=0.9) with parameter groups 114 weight(decay=0.0), 126 weight(decay=0.000515625), 126 bias(decay=0.0)
+Image sizes 640 train, 640 val
+Using 8 dataloader workers
+Logging results to D:\Study\Projects\Fracture-Detection_HDAsubject\WristTrauma-AI\results\00_sanity_check_run
+Starting training for 1 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss    l1_loss  Instances       Size
+        1/1      1.91G      1.574      2.235   0.006698         23        640: 100% ━━━━━━━━━━━━ 2362/2362 8.9it/s 4:24
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 264/264 7.3it/s 36.1s
+                   all       3165       7601      0.898      0.266      0.304      0.169
+
+1 epochs completed in 0.084 hours.
+Optimizer stripped from D:\Study\Projects\Fracture-Detection_HDAsubject\WristTrauma-AI\results\00_sanity_check_run\weights\last.pt, 20.3MB
+Optimizer stripped from D:\Study\Projects\Fracture-Detection_HDAsubject\WristTrauma-AI\results\00_sanity_check_run\weights\best.pt, 20.3MB
+
+Validating D:\Study\Projects\Fracture-Detection_HDAsubject\WristTrauma-AI\results\00_sanity_check_run\weights\best.pt...
+Ultralytics 8.4.127  Python-3.12.10 torch-2.11.0+cu128 CUDA:0 (NVIDIA GeForce RTX 5060 Laptop GPU, 8151MiB)
+YOLO26s summary (fused): 122 layers, 9,468,663 parameters, 0 gradients, 20.8 GFLOPs
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 264/264 27.2it/s 9.7s
+                   all       3165       7601      0.898      0.266      0.304      0.169
+           boneanomaly         29         57          1          0          0          0
+            bonelesion          2          2          1          0          0          0
+              fracture       2224       2952      0.808      0.542      0.696      0.352
+                 metal        127        148       0.43      0.642      0.513      0.261
+    periostealreaction        364        555          1          0      0.166      0.049
+          pronatorsign         88         88          1          0     0.0616     0.0273
+            softtissue         67         70          1          0     0.0145     0.0048
+                  text       3162       3729      0.948      0.943      0.981      0.661
+Speed: 0.1ms preprocess, 1.7ms inference, 0.0ms loss, 0.1ms postprocess per image
+Ultralytics 8.4.127  Python-3.12.10 torch-2.11.0+cu128 CUDA:0 (NVIDIA GeForce RTX 5060 Laptop GPU, 8151MiB)
+YOLO26s summary (fused): 122 layers, 9,468,663 parameters, 0 gradients, 20.8 GFLOPs
+val: Fast image access  (ping: 0.00.0 ms, read: 648.3240.7 MB/s, size: 683.9 KB)
+val: Scanning D:\Study\Projects\Fracture-Detection_HDAsubject\WristTrauma-AI\data\processed\labels\val.cache... 3165 ima: 100% ━━━━━━━━━━━━ 3165/3165  0.0s
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 198/198 13.4it/s 14.7s
+                   all       3165       7601      0.898      0.266      0.304      0.169
+           boneanomaly         29         57          1          0          0          0
+            bonelesion          2          2          1          0          0          0
+              fracture       2224       2952      0.805      0.544      0.696      0.353
+                 metal        127        148      0.428      0.642       0.51       0.26
+    periostealreaction        364        555          1          0      0.167     0.0491
+          pronatorsign         88         88          1          0     0.0616     0.0273
+            softtissue         67         70          1          0     0.0147     0.0048
+                  text       3162       3729      0.947      0.945      0.982      0.661
+Speed: 0.6ms preprocess, 3.0ms inference, 0.0ms loss, 0.1ms postprocess per image
+
+======================================================================
+SANITY CHECK PASSED
+======================================================================
+  1-epoch smoke train+val wall time : 374.2s
+  (numbers below are meaningless after 1 epoch - this only proves
+   the pipeline runs end-to-end, not that the model is trained)
+  val precision (mean)  : 0.8976
+  val recall (mean)     : 0.2664
+  val mAP50             : 0.3038
+  val mAP50-95          : 0.1694
+======================================================================
+
+Everything checks out. You can now run:
+    python scripts\01_train_baseline.py
+
+(venv) PS D:\Study\Projects\Fracture-Detection_HDAsubject\WristTrauma-AI>

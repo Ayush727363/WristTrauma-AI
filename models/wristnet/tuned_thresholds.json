@@ -1,0 +1,6 @@
+{
+  "fracture": 0.39,
+  "foreign_material": 0.75,
+  "softtissue_indirect": 0.61,
+  "bone_lesion": 0.67
+}

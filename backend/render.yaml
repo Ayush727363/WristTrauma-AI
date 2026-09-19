@@ -1,0 +1,32 @@
+# render.yaml
+# -----------
+# Render Blueprint for the WristTrauma-AI backend.
+#
+# Deploy: push this repo to GitHub, then on Render choose
+# "New +" -> "Blueprint" and point it at the repo. Render reads this file
+# automatically. Alternatively, create a Web Service manually and just copy
+# the buildCommand / startCommand below.
+#
+# IMPORTANT: Render's free/starter tiers are CPU-only. WristNet is small
+# (2.8M params) and inference on CPU is fine for a demo (roughly 1-2s per
+# image). If you have a GPU-tier Render plan, torch will use it automatically
+# since main.py picks CUDA when available -- no code change needed.
+#
+# The trained weights for BOTH models must be included in the repo/deploy:
+#   - models/wristnet/best.pt + tuned_thresholds.json (a few MB)
+#   - models/<YOLO_RUN_NAME>/best.pt (YOLO26s weights, ~20-40MB) -- see
+#     YOLO_RUN_NAME in backend/main.py; it must match your actual training
+#     run folder name under models/.
+# Committing these directly is the simplest approach for a student project.
+# Render's disk is otherwise ephemeral.
+
+services:
+  - type: web
+    name: wristtrauma-api
+    runtime: python
+    plan: free
+    buildCommand: "pip install torch --index-url https://download.pytorch.org/whl/cpu && pip install -r backend/requirements.txt"
+    startCommand: "cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9

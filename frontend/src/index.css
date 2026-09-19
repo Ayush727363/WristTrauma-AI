@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS
+   Premium private-hospital palette: deep clinical teal/emerald
+   as the anchor color, warm ivory surfaces, a single confident
+   accent (amber-gold) used sparingly for emphasis. Fraunces
+   (a high-contrast display serif) for headlines gives the
+   "boutique medical institute" feel instead of generic SaaS.
+   ============================================================ */
+:root{
+  /* core palette */
+  --ink-950:#04120f;
+  --ink-900:#071b17;
+  --ink-850:#0a231e;
+  --ink-800:#0d2b24;
+  --ink-700:#123830;
+  --ink-600:#1a4a3f;
+  --ink-500:#276657;
+
+  --surface-0:#fbfaf7;
+  --surface-1:#f4f1ea;
+  --surface-2:#ece7db;
+
+  --emerald-500:#0f7a5c;
+  --emerald-400:#16a37d;
+  --emerald-300:#4fd8ac;
+  --emerald-glow:#5eead4;
+
+  --gold-500:#b8862f;
+  --gold-400:#d4a94a;
+  --gold-300:#e8cf7a;
+
+  --ink-text-0:#f3f7f5;
+  --ink-text-1:#c3d6cf;
+  --ink-text-2:#7fa398;
+
+  --dark-text-0:#0c1f1a;
+  --dark-text-1:#3c5952;
+  --dark-text-2:#6b8981;
+
+  --danger:#b23a48;
+  --danger-soft:#e9c3c8;
+
+  --radius-xl: 28px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 9px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --shadow-soft: 0 1px 2px rgba(4,18,15,0.04), 0 8px 24px -8px rgba(4,18,15,0.10);
+  --shadow-mid: 0 4px 16px -4px rgba(4,18,15,0.12), 0 16px 48px -16px rgba(4,18,15,0.18);
+  --shadow-deep: 0 8px 30px -8px rgba(4,18,15,0.25), 0 30px 80px -20px rgba(4,18,15,0.35);
+  --shadow-glow-emerald: 0 0 0 1px rgba(94,234,212,0.15), 0 8px 40px -8px rgba(15,122,92,0.45);
+  --shadow-glow-gold: 0 0 0 1px rgba(212,169,74,0.2), 0 8px 30px -8px rgba(184,134,47,0.35);
+}
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:var(--surface-0);
+  color:var(--dark-text-0);
+  font-family:'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+
+h1,h2,h3,h4,.font-display{
+  font-family:'Fraunces', Georgia, serif;
+  letter-spacing:-0.01em;
+}
+
+.font-mono{ font-family:'JetBrains Mono', ui-monospace, monospace; }
+
+/* ============================================================
+   REUSABLE PRIMITIVES
+   ============================================================ */
+
+/* fine noise/grain texture overlay -- kills the "flat AI gradient"
+   look by adding a whisper of analog texture over gradients */
+.grain-overlay{
+  position:fixed; inset:0; pointer-events:none; z-index:1; opacity:0.035; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.glass-panel{
+  background:rgba(255,255,255,0.66);
+  backdrop-filter:blur(20px) saturate(160%);
+  -webkit-backdrop-filter:blur(20px) saturate(160%);
+  border:1px solid rgba(255,255,255,0.5);
+}
+
+.glass-panel-dark{
+  background:rgba(10,35,30,0.55);
+  backdrop-filter:blur(20px) saturate(160%);
+  -webkit-backdrop-filter:blur(20px) saturate(160%);
+  border:1px solid rgba(94,234,212,0.12);
+}
+
+.grad-emerald{
+  background:linear-gradient(135deg, var(--emerald-500), var(--ink-700) 65%, var(--ink-900));
+}
+
+.grad-hero-mesh{
+  background:
+    radial-gradient(ellipse 900px 500px at 15% -10%, rgba(94,234,212,0.16), transparent 60%),
+    radial-gradient(ellipse 700px 600px at 100% 10%, rgba(212,169,74,0.10), transparent 55%),
+    radial-gradient(ellipse 1000px 700px at 50% 120%, rgba(15,122,92,0.14), transparent 60%),
+    var(--ink-950);
+}
+
+.text-gradient-gold{
+  background:linear-gradient(120deg, var(--gold-300), var(--gold-500));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.text-gradient-emerald{
+  background:linear-gradient(120deg, var(--emerald-glow), var(--emerald-400));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+
+.btn-primary{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  background:linear-gradient(135deg, var(--emerald-400), var(--emerald-500));
+  color:#fff; font-weight:600; font-size:15px; padding:15px 28px; border-radius:999px;
+  border:none; cursor:pointer; position:relative; overflow:hidden;
+  box-shadow:var(--shadow-glow-emerald);
+  transition:transform 0.3s var(--ease-out-expo), box-shadow 0.3s var(--ease-out-expo);
+}
+.btn-primary:hover{ transform:translateY(-2px); box-shadow:0 0 0 1px rgba(94,234,212,0.25), 0 14px 50px -10px rgba(15,122,92,0.55); }
+.btn-primary:active{ transform:translateY(0px) scale(0.98); }
+.btn-primary:disabled{ opacity:0.4; cursor:not-allowed; transform:none; box-shadow:none; }
+
+.btn-ghost-dark{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  background:rgba(255,255,255,0.06); color:var(--ink-text-0); font-weight:600; font-size:14.5px;
+  padding:13px 24px; border-radius:999px; border:1px solid rgba(255,255,255,0.14); cursor:pointer;
+  transition:all 0.25s var(--ease-out-expo);
+}
+.btn-ghost-dark:hover{ background:rgba(255,255,255,0.1); border-color:rgba(94,234,212,0.35); }
+
+.btn-outline-light{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  background:transparent; color:var(--dark-text-0); font-weight:600; font-size:14.5px;
+  padding:13px 24px; border-radius:999px; border:1.5px solid rgba(15,122,92,0.25); cursor:pointer;
+  transition:all 0.25s var(--ease-out-expo);
+}
+.btn-outline-light:hover{ background:rgba(15,122,92,0.06); border-color:var(--emerald-500); }
+
+.chip{
+  display:inline-flex; align-items:center; gap:7px; font-size:12.5px; font-weight:600;
+  padding:6px 13px; border-radius:999px; letter-spacing:0.01em;
+}
+
+/* scrollbar */
+::-webkit-scrollbar{ width:11px; height:11px; }
+::-webkit-scrollbar-track{ background:transparent; }
+::-webkit-scrollbar-thumb{ background:rgba(15,122,92,0.25); border-radius:99px; border:3px solid transparent; background-clip:content-box; }
+::-webkit-scrollbar-thumb:hover{ background:rgba(15,122,92,0.4); background-clip:content-box; }
+
+::selection{ background:var(--emerald-300); color:var(--ink-950); }
+
+/* Focus visibility, accessible but understated */
+:focus-visible{ outline:2px solid var(--emerald-400); outline-offset:3px; border-radius:4px; }
+
+/* ============================================================
+   PRINT STYLES for the diagnostic report (ReportModal.jsx)
+   Each .report-page is sized to exactly one A4 sheet; forcing a
+   page-break after each one guarantees one page per sheet when
+   printed / saved as PDF via the browser's native print dialog --
+   deliberately NOT using html2canvas/jsPDF rasterization, which
+   proved unreliable for multi-page exact-size output.
+   ============================================================ */
+@media print{
+  @page{ size:A4; margin:0; }
+  html, body{ height:auto !important; overflow:visible !important; }
+
+  /* Hide everything except the report using display:none, not
+     visibility:hidden. visibility:hidden keeps an element's box in
+     normal flow (it just paints nothing), so every other section of the
+     app was still occupying real layout height on the print page even
+     though invisible -- pushing the actual report content down and
+     splitting it across extra blank-fronted pages. display:none removes
+     the element from layout entirely, which is what "only print this"
+     actually requires. ReportModal is rendered via a React portal directly
+     into document.body (see ReportModal.jsx), so #reportModalRoot is
+     always a genuine direct child of body -- this selector doesn't need
+     to reach through React's #root nesting at all. */
+  body > *:not(#reportModalRoot){ display:none !important; }
+
+  #reportModalRoot, #reportModalRoot *{
+    position:static !important;
+    transform:none !important;
+  }
+  #report-print-area{
+    position:static !important; inset:auto !important;
+    width:100% !important; height:auto !important; max-height:none !important;
+    margin:0 !important; padding:0 !important; overflow:visible !important;
+    background:#fff !important; display:block !important;
+  }
+  .report-page{
+    page-break-after:always; break-after:page;
+    page-break-inside:avoid; break-inside:avoid;
+    box-shadow:none !important; margin:0 auto !important;
+  }
+  .report-page:last-child{ page-break-after:auto; break-after:auto; }
+}
+
+/* Report pages sit inside #report-print-area, which is a column flex
+   container in screen mode (for the on-screen preview scroller). A flex
+   item's `height` is only its flex-basis -- the browser is free to shrink
+   it below that (default flex-shrink:1) if the container is height-
+   constrained, which it is here (the modal has a fixed viewport height).
+   That silently compressed the 297mm figure pages down to whatever fit,
+   while page 1 (using min-height, a hard floor flex-shrink cannot violate)
+   rendered at its correct height -- producing pages 2-4 that were shorter
+   than one A4 sheet and threw off print pagination. flex-shrink:0 pins
+   every report page at its real, intended size regardless of container. */
+.report-page{ flex-shrink:0; }

@@ -1,0 +1,77 @@
+{
+  "best_epoch": 65,
+  "select_metric": "stable_auroc",
+  "best_select_score": 0.9629123027202591,
+  "best_val_macro_auroc": 0.9410897715617136,
+  "best_val_stable_auroc": 0.9629123027202591,
+  "best_val_macro_f1_at_0.5": 0.6353194237191115,
+  "best_val_macro_f1_tuned": 0.6883863492989292,
+  "tuned_thresholds": {
+    "fracture": 0.39,
+    "foreign_material": 0.75,
+    "softtissue_indirect": 0.61,
+    "bone_lesion": 0.67
+  },
+  "per_class_at_best_epoch": {
+    "fracture": {
+      "auroc": 0.9725351493512947,
+      "precision": 0.9652418976045092,
+      "recall": 0.9240107913669064,
+      "f1": 0.9441764300482426,
+      "tuned_threshold": 0.39,
+      "tuned_precision": 0.9416703490941228,
+      "tuned_recall": 0.95818345323741,
+      "tuned_f1": 0.9498551370626254,
+      "n_positive": 2224
+    },
+    "foreign_material": {
+      "auroc": 0.9970167899519473,
+      "precision": 0.8287671232876712,
+      "recall": 0.952755905511811,
+      "f1": 0.8864468864468864,
+      "tuned_threshold": 0.75,
+      "tuned_precision": 0.975,
+      "tuned_recall": 0.9212598425196851,
+      "tuned_f1": 0.9473684210526315,
+      "n_positive": 127
+    },
+    "softtissue_indirect": {
+      "auroc": 0.924137900180741,
+      "precision": 0.4883720930232558,
+      "recall": 0.875,
+      "f1": 0.6268656716417911,
+      "tuned_threshold": 0.61,
+      "tuned_precision": 0.6354515050167224,
+      "tuned_recall": 0.753968253968254,
+      "tuned_f1": 0.6896551724137931,
+      "n_positive": 504
+    },
+    "bone_lesion": {
+      "auroc": 0.8706692467628713,
+      "precision": 0.0444015444015444,
+      "recall": 0.7419354838709677,
+      "f1": 0.08378870673952642,
+      "tuned_threshold": 0.67,
+      "tuned_precision": 0.11688311688311688,
+      "tuned_recall": 0.2903225806451613,
+      "tuned_f1": 0.16666666666666666,
+      "n_positive": 31
+    }
+  },
+  "total_epochs_run": 85,
+  "total_training_time_s": 2478.8,
+  "total_training_time_hms": "00:41:18",
+  "img_size": 256,
+  "batch_size": 128,
+  "lr": 0.0005,
+  "focal_gamma": 2.0,
+  "focal_alpha": [
+    0.3386026620864868,
+    0.9637967348098755,
+    0.8436838388442993,
+    0.9884262681007385
+  ],
+  "n_params": 2799908,
+  "best_pt": "D:\\Study\\Projects\\Fracture-Detection_HDAsubject\\WristTrauma-AI\\models\\wristnet\\best.pt",
+  "last_pt": "D:\\Study\\Projects\\Fracture-Detection_HDAsubject\\WristTrauma-AI\\models\\wristnet\\last.pt"
+}
